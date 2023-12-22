@@ -2013,9 +2013,8 @@ class _ImageEditorDrawingState extends State<ImageEditorDrawing> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: <Widget>[
-                ColorButton(
-                  color: Colors.yellow,
-                  onTap: (color) {
+                MultiColorButton(
+                  onTap: () {
                     showModalBottomSheet(
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
@@ -2089,6 +2088,43 @@ class ColorButton extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 23),
         decoration: BoxDecoration(
           color: color,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isSelected ? Colors.white : Colors.white54,
+            width: isSelected ? 3 : 1,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MultiColorButton extends StatelessWidget {
+  final VoidCallback onTap;
+  final bool isSelected;
+
+  const MultiColorButton({
+    super.key,
+    required this.onTap,
+    this.isSelected = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        onTap.call();
+      },
+      child: Container(
+        height: 34,
+        width: 34,
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 23),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Colors.blue, Colors.green, Colors.orange],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isSelected ? Colors.white : Colors.white54,
